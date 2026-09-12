@@ -77,8 +77,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Gema Eka — Digital Designer" },
+      { name: "description", content: "Independent digital designer based in Indonesia." },
       { name: "author", content: "Gema Eka" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
