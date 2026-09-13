@@ -109,8 +109,8 @@ button, input, textarea { font: inherit; }
 .contact-card input, .contact-card textarea { display: block; width: 100%; border: 1px solid var(--color-input); border-radius: 1.3rem; background: color-mix(in oklab, var(--color-background) 56%, transparent); padding: .75rem 1.2rem; outline: none; transition: border-color 180ms ease, box-shadow 180ms ease; }
 .contact-card textarea { resize: vertical; }
 .contact-card input:focus, .contact-card textarea:focus { border-color: var(--color-ring); box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-ring) 15%, transparent); }
-.contact-modal { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; padding: 1.25rem; visibility: hidden; overflow-y: auto; background: color-mix(in oklab, var(--color-foreground) 15%, transparent); opacity: 0; pointer-events: none; backdrop-filter: blur(8px); transition: opacity 240ms ease, visibility 240ms ease; }
-.contact-modal.is-open { visibility: visible; opacity: 1; pointer-events: auto; }
+.contact-modal { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; padding: 1.25rem; visibility: hidden; overflow-y: auto; background: color-mix(in oklab, var(--color-foreground) 15%, transparent); opacity: 0; pointer-events: none; backdrop-filter: blur(8px); transition: opacity 240ms ease, visibility 0s linear 240ms; }
+.contact-modal.is-open { visibility: visible; opacity: 1; pointer-events: auto; transition-delay: 0s; }
 .contact-dialog { position: relative; width: min(100%, 28rem); transform: translateY(12px) scale(.96); opacity: 0; transition: transform 280ms cubic-bezier(.2,.8,.2,1), opacity 220ms ease; }
 .contact-modal.is-open .contact-dialog { transform: translateY(0) scale(1); opacity: 1; }
 .contact-close { position: absolute; top: .8rem; right: .8rem; z-index: 1; border-radius: 9999px; color: var(--color-muted-foreground); }
