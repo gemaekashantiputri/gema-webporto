@@ -74,7 +74,7 @@ button, input, textarea { font: inherit; }
 .nav-pill { display: flex; height: 3.25rem; align-items: center; gap: 1.8rem; border: 1px solid var(--color-border); border-radius: 9999px; padding-inline: 1.7rem; background: color-mix(in oklab, var(--color-background) 76%, transparent); font-size: .95rem; backdrop-filter: blur(18px); box-shadow: 0 4px 18px color-mix(in oklab, var(--color-foreground) 7%, transparent); }
 .nav-pill a { transition: opacity 180ms ease; }
 .nav-pill a:hover { opacity: .5; }
-.contact-float { position: fixed; right: 2rem; bottom: 1.75rem; z-index: 50; border: 1px solid var(--color-border); border-radius: 9999px; padding: .85rem 1.55rem; background: color-mix(in oklab, var(--color-background) 78%, transparent); backdrop-filter: blur(18px); box-shadow: 0 6px 24px color-mix(in oklab, var(--color-foreground) 8%, transparent); transition: transform 180ms ease, background 180ms ease; }
+.contact-float { position: fixed; right: 2rem; bottom: 1.75rem; z-index: 50; height: auto; border: 1px solid var(--color-border); border-radius: 9999px; padding: .85rem 1.55rem; background: color-mix(in oklab, var(--color-background) 78%, transparent); color: var(--color-foreground); backdrop-filter: blur(18px); box-shadow: 0 6px 24px color-mix(in oklab, var(--color-foreground) 8%, transparent); transition: transform 180ms ease, background 180ms ease; }
 .contact-float:hover { transform: translateY(-2px); background: var(--color-background); }
 
 .social-pill { display: inline-flex; min-height: 2.7rem; align-items: center; gap: .65rem; border: 1px solid var(--color-border); border-radius: 9999px; padding: .25rem 1rem .25rem .35rem; font-size: .82rem; background: color-mix(in oklab, var(--color-background) 45%, transparent); box-shadow: inset -24px 0 36px var(--social-color); transition: transform 180ms ease; }
@@ -109,6 +109,11 @@ button, input, textarea { font: inherit; }
 .contact-card input, .contact-card textarea { display: block; width: 100%; border: 1px solid var(--color-input); border-radius: 1.3rem; background: color-mix(in oklab, var(--color-background) 56%, transparent); padding: .75rem 1.2rem; outline: none; transition: border-color 180ms ease, box-shadow 180ms ease; }
 .contact-card textarea { resize: vertical; }
 .contact-card input:focus, .contact-card textarea:focus { border-color: var(--color-ring); box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-ring) 15%, transparent); }
+.contact-modal { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; padding: 1.25rem; visibility: hidden; overflow-y: auto; background: color-mix(in oklab, var(--color-foreground) 15%, transparent); opacity: 0; pointer-events: none; backdrop-filter: blur(8px); transition: opacity 240ms ease, visibility 0s linear 240ms; }
+.contact-modal.is-open { visibility: visible; opacity: 1; pointer-events: auto; transition-delay: 0s; }
+.contact-dialog { position: relative; width: min(100%, 28rem); transform: translateY(12px) scale(.96); opacity: 0; transition: transform 280ms cubic-bezier(.2,.8,.2,1), opacity 220ms ease; }
+.contact-modal.is-open .contact-dialog { transform: translateY(0) scale(1); opacity: 1; }
+.contact-close { position: absolute; top: .8rem; right: .8rem; z-index: 1; border-radius: 9999px; color: var(--color-muted-foreground); }
 
 @keyframes fluid-one { from { transform: translate3d(-4%, -2%, 0) rotate(-4deg) scale(1); } to { transform: translate3d(5%, 4%, 0) rotate(5deg) scale(1.13); } }
 @keyframes fluid-two { from { transform: translate3d(2%, -4%, 0) rotate(0deg); } 50% { transform: translate3d(-3%, 4%, 0) rotate(4deg); } to { transform: translate3d(2%, -4%, 0) rotate(0deg); } }
@@ -132,4 +137,5 @@ button, input, textarea { font: inherit; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .fluid-ripple, .project-track { animation: none; }
+  .contact-modal, .contact-dialog { transition: none; }
 }
