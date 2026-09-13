@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, type FormEvent } from "react";
-import { Dribbble, Linkedin, Mail, Palette, Pin } from "lucide-react";
+import { useEffect, useState, type FormEvent, type MouseEvent } from "react";
+import { Dribbble, Linkedin, Mail, Palette, Pin, X } from "lucide-react";
 
 import avatarImage from "@/assets/gema-avatar.jpg";
 import independenceImage from "@/assets/independence-elements.jpg";
@@ -78,7 +78,21 @@ function FluidBackground() {
 
 function Index() {
   const [activeRole, setActiveRole] = useState(0);
+  const [contactOpen, setContactOpen] = useState(false);
   const role = roles[activeRole] ?? roles[0];
+
+  useEffect(() => {
+    function closeOnEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") setContactOpen(false);
+    }
+
+    document.addEventListener("keydown", closeOnEscape);
+    document.body.style.overflow = contactOpen ? "hidden" : "";
+    return () => {
+      document.removeEventListener("keydown", closeOnEscape);
+      document.body.style.overflow = "";
+    };
+  }, [contactOpen]);
 
   function sendMessage(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -104,7 +118,7 @@ function Index() {
         </div>
       </header>
 
-      <a href="#contact" className="contact-float">Get in Touch !</a>
+      <Button type="button" variant="outline" onClick={() => setContactOpen(true)} className="contact-float">Get in Touch !</Button>
 
       <section id="top" className="frame-section flex items-center px-6 md:px-[5.3vw]">
         <div className="mt-14">
@@ -170,15 +184,27 @@ function Index() {
         </div>
       </section>
 
-      <section id="contact" className="frame-section flex items-center justify-center px-6 py-28 md:justify-end md:px-[11vw]">
-        <form onSubmit={sendMessage} className="contact-card w-full max-w-md">
-          <h2 className="text-3xl">Let’s Collaborate</h2>
-          <label htmlFor="name">Name</label><input id="name" name="name" placeholder="Full name" required />
-          <label htmlFor="email">Email</label><input id="email" name="email" type="email" placeholder="gemaeka1@gmail.com" required />
-          <label htmlFor="message">Message</label><textarea id="message" name="message" placeholder="Jot something down!" rows={4} required />
-          <Button type="submit" className="mt-2 rounded-full px-6">Send</Button>
-        </form>
-      </section>
+      <div
+        className={`contact-modal ${contactOpen ? "is-open" : ""}`}
+        role="presentation"
+        aria-hidden={!contactOpen}
+        onMouseDown={(event: MouseEvent<HTMLDivElement>) => {
+          if (event.target === event.currentTarget) setContactOpen(false);
+        }}
+      >
+        <div className="contact-dialog" role="dialog" aria-modal="true" aria-labelledby="contact-title">
+          <Button type="button" variant="ghost" size="icon" className="contact-close" onClick={() => setContactOpen(false)} aria-label="Close contact form">
+            <X aria-hidden="true" />
+          </Button>
+          <form onSubmit={sendMessage} className="contact-card w-full">
+            <h2 id="contact-title" className="text-3xl">Let’s Collaborate</h2>
+            <label htmlFor="name">Name</label><input id="name" name="name" placeholder="Full name" required tabIndex={contactOpen ? 0 : -1} />
+            <label htmlFor="email">Email</label><input id="email" name="email" type="email" placeholder="gemaeka1@gmail.com" required tabIndex={contactOpen ? 0 : -1} />
+            <label htmlFor="message">Message</label><textarea id="message" name="message" placeholder="Jot something down!" rows={4} required tabIndex={contactOpen ? 0 : -1} />
+            <Button type="submit" className="mt-2 rounded-full px-6" tabIndex={contactOpen ? 0 : -1}>Send</Button>
+          </form>
+        </div>
+      </div>
     </main>
   );
 }
