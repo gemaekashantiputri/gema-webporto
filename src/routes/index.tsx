@@ -1,6 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState, type FormEvent, type MouseEvent } from "react";
-import { Dribbble, Linkedin, Mail, Palette, Pin, X } from "lucide-react";
+import { Dribbble, Icon, Linkedin, Mail, Palette, Pin, X } from "lucide-react";
+import gmailIcon from "@/assets/gmail-icon.png";
+import pinterestIcon from "@/assets/pinterestIcon.png";
+import canvaIcon from "@/assets/canvaIcon.png";
+import dribbbleIcon from "@/assets/dribbbleIcon.png";
+import lindkedlnIcon from "@/assets/linkedlnIcon.png";
 
 import avatarImage from "@/assets/gema-avatar.jpg";
 import independenceImage from "@/assets/independence-elements.jpg";
@@ -51,11 +56,11 @@ const roles = [
 ];
 
 const socialLinks = [
-  { label: "gemaeka1@gmail.com", href: "mailto:gemaeka1@gmail.com", icon: Mail, tone: "social-gmail" },
-  { label: "gemaeka", href: "https://dribbble.com/gemaeka", icon: Dribbble, tone: "social-dribbble" },
-  { label: "@gemaeka", href: "https://contra.com/gemaeka", icon: Palette, tone: "social-contra" },
-  { label: "gemaekashantip", href: "https://linkedin.com/in/gemaekashantip", icon: Linkedin, tone: "social-linkedin" },
-  { label: "gemgemshi", href: "https://pinterest.com/gemgemshi", icon: Pin, tone: "social-pinterest" },
+  { label: "gemaeka1@gmail.com", href: "mailto:gemaeka1@gmail.com", icon: gmailIcon, tone: "social-gmail", isImage: true },
+  { label: "gemaeka", href: "https://dribbble.com/gemaeka", icon: dribbbleIcon, tone: "social-dribbble", isImage: true },
+  { label: "@gemaeka", href: "https://contra.com/gemaeka", icon: canvaIcon, tone: "social-canva", isImage: true },
+  { label: "gemaekashantip", href: "https://linkedin.com/in/gemaekashantip", icon: lindkedlnIcon, tone: "social-linkedin", isImage: true },
+  { label: "gemgemshi", href: "https://pinterest.com/gemgemshi", icon: pinterestIcon, tone: "social-pinterest", isImage: true },
 ];
 
 export const Route = createFileRoute("/")({
@@ -134,9 +139,12 @@ function Index() {
             A passionate designer with management analysis, focused on user experience &amp; creating innovative solution through visual. I have great interest in research process, design thinking, and product management
           </p>
           <div className="mt-12 flex flex-wrap gap-4">
-            {socialLinks.map(({ label, href, icon: Icon, tone }) => (
+            {socialLinks.map(({ label, href, icon, tone, isImage }) => (
               <a key={label} href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" className={`social-pill ${tone}`}>
-                <span className="social-icon"><Icon aria-hidden="true" /></span><span>{label}</span>
+                <span className="social-icon">
+                  {isImage && icon ? <img src={icon} alt={label} /> : (<Icon aria-hidden="true" iconNode={[]} />)}
+                </span>
+                <span>{label}</span>
               </a>
             ))}
           </div>

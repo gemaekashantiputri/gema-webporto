@@ -1,12 +1,11 @@
-@import "tailwindcss" source(none);
-@source "../src";
+@import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
-
+/* Tailwind CSS v4 directive; ignored by generic CSS linters. */
+/* stylelint-disable at-rule-no-unknown */
 @theme inline {
-  --font-sans: "DM Sans", sans-serif;
-  --font-display: "DM Sans", sans-serif;
+  --font-sans: "Clash Grotesk", sans-serif;
+  --font-display: "Clash Grotesk", sans-serif;
   --radius-sm: calc(var(--radius) - 2px);
   --radius-md: var(--radius);
   --radius-lg: calc(var(--radius) + 4px);
@@ -31,6 +30,7 @@
   --color-ring: var(--ring);
   --color-surface: var(--surface);
 }
+/* stylelint-enable at-rule-no-unknown */
 
 :root {
   --radius: 0.75rem;
